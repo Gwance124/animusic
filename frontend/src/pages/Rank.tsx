@@ -5,7 +5,6 @@ export const Rank = () => {
     <div>
       Rank Page
       <SongCard />
-      <SongCard />
     </div>
   );
 }
