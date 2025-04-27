@@ -27,7 +27,7 @@ class SongImporter:
             "fields[anime]": "id,name,slug",
             "fields[image]": "path",
             "page[size]": 100,
-            "page[number]": page
+            "page[number]": page,
         }
         response = requests.get("https://api.animethemes.moe/anime", params=params)
         response.raise_for_status()
@@ -42,7 +42,7 @@ class SongImporter:
             "filter[has]": "animethemes",
             "include": "animethemes.song.artists,animethemes.animethemeentries.videos,images",
             "page[size]": 100,
-            "page[number]": page
+            "page[number]": page,
         }
         response = requests.get("https://api.animethemes.moe/anime", params=params)
         response.raise_for_status()
@@ -68,19 +68,21 @@ class SongImporter:
         # Process themes
         for theme in anime.get("animethemes", []):
             for entry in theme.get("animethemeentries", []):
-                rows.append({
-                    "id": f"{anime_id}-{theme['type']}-{theme['sequence']}",
-                    "created_at": datetime.now().isoformat(),
-                    "year": year,
-                    "season": season,
-                    "title": theme["song"]["title"],
-                    "artist": ", ".join(a["name"] for a in theme["song"]["artists"]),
-                    "type": f"{theme['type']} {theme['sequence']}",
-                    "image_url": image_url,
-                    "video_url": entry["videos"][0]["link"] if entry.get("videos") else None,
-                    "rating": 0,
-                    "matches_played": 0
-                })
+                rows.append(
+                    {
+                        "id": f"{anime_id}-{theme['type']}-{theme['sequence']}",
+                        "created_at": datetime.now().isoformat(),
+                        "year": year,
+                        "season": season,
+                        "title": theme["song"]["title"],
+                        "artist": ", ".join(a["name"] for a in theme["song"]["artists"]),
+                        "type": f"{theme['type']} {theme['sequence']}",
+                        "image_url": image_url,
+                        "video_url": entry["videos"][0]["link"] if entry.get("videos") else None,
+                        "rating": 0,
+                        "matches_played": 0,
+                    }
+                )
         return rows
 
     def upsert_to_supabase(self, rows: list) -> None:
@@ -130,9 +132,9 @@ class SongImporter:
 
 @click.command()
 @click.option(
-    '--env-path',
-    '-e',
-    help='Path to the .env file',
+    "--env-path",
+    "-e",
+    help="Path to the .env file",
 )
 def main(env_path: str) -> None:
     # Load .env file

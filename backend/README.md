@@ -5,7 +5,7 @@ $ python3 -m venv .venv
 $ source .venv/bin/activate
 
 # install the dependencies. editable mode is used to install the package in a way that allows you to modify the code without reinstalling it.
-$ pip install --editable .
+$ pip install --editable .[dev]
 
 # you can check the installed packages in the virtual environment.
 $ pip list
@@ -29,3 +29,15 @@ $ echo $PATH | tr ':' '\n'
 /home/hwansoo/.nvm/versions/node/v14.17.3/bin
 /home/hwansoo/.npm-packages/bin
 ...
+
+# run tests.
+$ pytest
+
+# run flake8 to check the code style.
+$ flake8 
+
+# run black to format the code.
+$ black .
+
+# run mypy to check the type hints.
+$ mypy .

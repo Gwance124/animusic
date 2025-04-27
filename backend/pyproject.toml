@@ -1,5 +1,5 @@
 [project]
-name = "Animusic Backend Package"
+name = "animusic"
 version = "0.1.0"
 description = "A backend"
 authors = [{ "name" = "Matthew Lee" }]
@@ -54,8 +54,64 @@ dependencies = [
     "yarl==1.20.0"
 ]
 
+[project.optional-dependencies]
+dev = [
+    "black",
+    "Cython",
+    "flake8",
+    "mypy",
+    "pytest-mypy",
+    "Flake8-pyproject"
+]
+test = [
+    "pytest",
+    "pytest-cov"
+]
+
+[tool.pytest.ini_options]
+addopts = "--verbose -ra"
+minversion = "6.0"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.flake8]
+exclude = ".venv,__pycache__"
+ignore = ['E231', 'E241']
+per-file-ignores = [
+    '__init__.py:F401',
+]
+max-line-length = 100
+count = true
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312', 'py313']
+include = '\.pyi?$'
+exclude = '''
+(
+  /(
+      \.eggs         # exclude a few common directories in the
+    | \.git          # root of the project
+    | \.hg
+    | \.mypy_cache
+    | \.tox
+    | \.venv
+    | _build
+    | buck-out
+    | dist
+  )/
+  | foo.py      # also separately exclude a file named foo.py
+)
+'''
+
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel", "Cython"]
 build-backend = "setuptools.build_meta"
 
 [project.entry-points."console_scripts"]
