@@ -1,9 +1,5 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
 [project]
-name = "backend_package"
+name = "Animusic Backend Package"
 version = "0.1.0"
 description = "A backend"
 authors = [{ "name" = "Matthew Lee" }]
@@ -58,9 +54,9 @@ dependencies = [
     "yarl==1.20.0"
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["scripts"]
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project.entry-points."console_scripts"]
-song_importer = "scripts.song_importer:main"
+song_importer = "importer.song_importer:main"
