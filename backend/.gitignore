@@ -2,3 +2,5 @@
 .env
 __pycache__/
 backend_package.egg-info/
+animusic_package.egg-info/
+animusic.egg-info/
