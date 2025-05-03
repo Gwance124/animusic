@@ -1,13 +1,2 @@
 @import "tailwindcss";
 
-
-/* In your global CSS file (e.g., src/index.css) */
-.hidden-preload-container {
-  position: absolute; /* Take it out of normal flow */
-  left: -9999px;    /* Move it far off-screen */
-  width: 1px;        /* Give it minimal size */
-  height: 1px;       /* Give it minimal size */
-  overflow: hidden;  /* Hide any potential overflow */
-  /* Using 'display: none;' can sometimes prevent resources from loading in certain browsers,
-     so off-screen positioning is often preferred for preloading. */
-}
